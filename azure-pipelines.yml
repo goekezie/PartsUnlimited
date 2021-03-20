@@ -81,4 +81,4 @@ stages:
         azureSubscription: 'Azuresub99devend(812866e1-7fdb-4a38-abda-bc40d7ffa85e)'
         appType: 'webApp'
         WebAppName: '$(AZURE_WEBAPP_NAME)'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/drop/*.zip'
