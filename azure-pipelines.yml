@@ -58,7 +58,7 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           az group create --location $(AZURE_LOCATION) --name $(AZURE_RESOURCE_GROUP) --subscription $(AZURE_SUBSCRIPTION_ID)
-          az appservice plan create --resource-group $(AZURE_RESOURCE_GROUP) --name $(AZURE_APP_PLAN) --is-linux --sku B1 --subscription $(AZURE_SUBSCRIPTION_ID)
+          az appservice plan create --resource-group $(AZURE_RESOURCE_GROUP) --name $(AZURE_APP_PLAN) --is-windows --sku B1 --subscription $(AZURE_SUBSCRIPTION_ID)
           az webapp create --resource-group $(AZURE_RESOURCE_GROUP) --plan $(AZURE_APP_PLAN) --name $(AZURE_WEBAPP_NAME)  --runtime "DOTNETCORE|3.1" --subscription $(AZURE_SUBSCRIPTION_ID)
 
 
@@ -75,6 +75,7 @@ stages:
         downloadType: 'single'
         downloadPath: '$(System.ArtifactsDirectory)'
         artifactName: 'drop'
+    
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
@@ -82,3 +83,4 @@ stages:
         appType: 'webApp'
         WebAppName: '$(AZURE_WEBAPP_NAME)'
         packageForLinux: '$(System.ArtifactsDirectory)/drop/*.zip'
+    
